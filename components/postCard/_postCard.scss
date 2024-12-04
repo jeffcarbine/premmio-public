@@ -1,0 +1,43 @@
+.postCard {
+  padding: 1rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--foreground-900);
+
+  img {
+    flex: 0 0 auto;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-size: var(--fs6);
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0;
+  }
+
+  .date {
+    font-size: var(--fs11);
+    margin: 1rem 0;
+    flex: 0 0 auto;
+    text-align: center;
+  }
+
+  .description {
+    flex: 0 0 7rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .btn-container {
+    flex: 0 0 auto;
+  }
+}

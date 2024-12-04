@@ -1,0 +1,98 @@
+@use "./mixin";
+@use "./breakpoints";
+
+html {
+  font-size: var(--base-font-size);
+  line-height: var(--base-line-height);
+  font-weight: var(--base-font-weight);
+  font-family: var(--base-font-family);
+
+  &[data-zoom="125"] {
+    --base-font-size: calc(var(--root-font-size) * 1.25);
+  }
+
+  &[data-zoom="150"] {
+    --base-font-size: calc(var(--root-font-size) * 1.5);
+  }
+
+  &[data-zoom="175"] {
+    --base-font-size: calc(var(--root-font-size) * 1.75);
+  }
+
+  &[data-zoom="200"] {
+    --base-font-size: calc(var(--root-font-size) * 2);
+  }
+}
+
+p {
+  margin: var(--p-margin) 0;
+
+  + p {
+    margin: 0 0 0.75rem 0;
+  }
+}
+
+a {
+  cursor: pointer;
+  color: var(--anchor-color);
+
+  &[role="button"] {
+    text-decoration: underline;
+  }
+}
+
+strong {
+  font-weight: var(--strong-font-weight);
+}
+
+em {
+  font-style: italic;
+}
+
+@mixin fontValues($size, $height: $size) {
+  font-size: var(--f#{$size}-font-size);
+  line-height: var(--f#{$height}-line-height);
+}
+
+@mixin headingValues($i) {
+  @include fontValues($i);
+
+  span {
+    display: block;
+    font-size: calc(var(--f#{$i}-font-size) * 0.5);
+    line-height: calc(var(--f#{$i}-font-size) * 0.45);
+  }
+}
+
+@for $i from 1 through 6 {
+  h#{$i} {
+    @include headingValues(#{$i});
+  }
+}
+
+ul,
+ol {
+  margin-top: var(--p-margin);
+  margin-bottom: var(--p-margin);
+  margin-left: 1.5rem;
+
+  li {
+    margin-bottom: 0.25rem;
+  }
+}
+
+ul li {
+  list-style-type: disc;
+}
+
+@media (width > breakpoints.$md) {
+  :root {
+    --base-font-size: calc(var(--root-font-size) * 1.125);
+  }
+}
+
+@media (width > breakpoints.$lg) {
+  :root {
+    ---font-size: calc(var(--root-font-size) * 1.25);
+  }
+}

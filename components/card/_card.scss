@@ -1,0 +1,118 @@
+// cards
+.card {
+  --card-background: var(--background-700);
+  --card-color: var(--foreground-600);
+  --card-subheading-color: var(--foreground-300);
+  --card-padding: 2rem;
+
+  background: var(--card-background);
+  color: var(--card-color);
+  fill: var(--foreground-600);
+  padding: var(--card-padding);
+  box-shadow: var(--box-shadow);
+  box-sizing: border-box;
+  margin: 1rem auto;
+  position: relative;
+  border-radius: var(--border-radius);
+
+  + .card {
+    margin-top: 2rem;
+  }
+
+  .card-image {
+    width: calc(100% + var(--card-padding) * 2);
+    margin: calc(-1 * var(--card-padding));
+    margin-bottom: var(--card-padding);
+    box-sizing: border-box;
+
+    img {
+      width: 100%;
+      height: 8rem;
+      object-fit: cover;
+    }
+
+    &.full {
+      padding: 1rem;
+      margin: 0;
+      margin-bottom: var(--card-padding);
+      width: 100%;
+
+      img {
+        height: auto;
+      }
+    }
+  }
+
+  .heading {
+    margin: 1rem 0;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    * {
+      font-size: var(--fs4) !important;
+      line-height: var(--fs4) !important;
+      color: var(--card-color);
+    }
+  }
+
+  .subheading {
+    margin: -1rem 0 1rem 0;
+    font-style: italic;
+    color: var(--card-subheading-color);
+
+    font-size: var(--fs9);
+  }
+
+  .actions {
+    margin-top: var(--card-padding);
+  }
+}
+
+.cardGrid {
+  container-type: inline-size;
+  container-name: cardGrid;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1rem;
+  box-sizing: border-box;
+
+  &.centered {
+    justify-content: center;
+  }
+
+  .card {
+    flex: 0 0 100%;
+  }
+}
+
+@container cardGrid (width >= 800px) {
+  .cardGrid {
+    .card {
+      flex: 0 0 calc(50% - 1rem);
+      margin: 0.5rem;
+
+      // + .card {
+      //   margin-top: 1rem;
+      // }
+    }
+  }
+}
+
+@container cardGrid (width >= 1200px) {
+  .cardGrid {
+    .card {
+      flex: 0 0 calc(33.3333% - 1rem);
+    }
+  }
+}
+
+@container cardGrid (width >= 1600px) {
+  .cardGrid {
+    .card {
+      flex: 0 0 calc(25% - 1rem);
+    }
+  }
+}

@@ -1,0 +1,17 @@
+﻿:host {
+  display: block;
+}
+
+svg.icon {
+  display: inline;
+  height: 100%;
+  width: 100%;
+  fill: inherit;
+  stroke: inherit;
+
+  * {
+    fill: inherit;
+    stroke: inherit;
+    transition: all 0.5s ease;
+  }
+}

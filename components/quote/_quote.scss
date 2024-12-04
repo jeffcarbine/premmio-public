@@ -1,0 +1,60 @@
+:root {
+  --quote-font: inherit;
+  --quotation-mark-font: inherit;
+}
+
+.quote {
+  margin: 5rem 0;
+  display: flex;
+  flex-wrap: wrap;
+
+  .quoteImage {
+    flex: 0 0 100%;
+    margin: 1rem;
+
+    img {
+      width: 100%;
+      max-width: 15rem;
+      border-radius: 50%;
+      box-shadow: var(--box-shadow);
+    }
+  }
+
+  .quoteContent {
+    blockquote {
+      position: relative;
+      font-size: var(--fs6);
+
+      margin-bottom: 1rem;
+      font-family: var(--quote-font);
+
+      &::before,
+      &::after {
+        font-family: var(--quotation-mark-font);
+        font-size: 10rem;
+        line-height: 10rem;
+        position: absolute;
+        opacity: 0.5;
+        z-index: -1;
+        height: 5rem;
+        width: 5rem;
+      }
+
+      &::before {
+        content: "“";
+        top: -3rem;
+        left: -2rem;
+      }
+
+      &::after {
+        content: "”";
+        bottom: 0rem;
+        right: -2rem;
+      }
+    }
+
+    .author {
+      font-size: var(--fs9);
+    }
+  }
+}

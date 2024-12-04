@@ -1,0 +1,225 @@
+﻿@use "../../styles/mixin";
+
+:root {
+  --alert-color: var(--foreground-800);
+  --alert-font-size: var(--fs10);
+  --alert-font-size-sm: var(--fs12);
+  --alert-font-weight: 100;
+  --alert-background: var(--background-100);
+  --alert-overlay: var(--background-400);
+  --alert-subtle-color: var(--foreground-300);
+  --alert-icon-color: var(--alert-color);
+}
+
+.alert {
+  --background: var(--alert-background);
+  --color: var(--alert-color);
+  --overlay: var(--alert-overlay);
+
+  display: block;
+  color: var(--color);
+  font-size: var(--alert-font-size);
+  font-weight: var(--alert-font-weight);
+  margin: 0.5rem;
+  position: relative;
+  transition: all 0.5s ease;
+  height: auto;
+  padding: 1rem;
+  overflow: hidden;
+  opacity: 1;
+  box-sizing: border-box;
+  color: var(--alert-color);
+  border-radius: var(--border-radius);
+
+  &.subtle {
+    --alert-icon-color: var(--alert-subtle-color) !important;
+
+    color: var(--alert-subtle-color);
+    padding: 0.5rem;
+
+    &::after {
+      background: transparent;
+    }
+  }
+
+  &.has-icon {
+    padding-left: 3.5rem;
+
+    .icon {
+      position: absolute;
+      top: 50%;
+      left: 0.5rem;
+      transform: translateY(-50%);
+      z-index: 1;
+      width: 2.5rem;
+      height: 2.5rem;
+      fill: var(--alert-icon-color);
+    }
+  }
+
+  &::after {
+    content: "";
+    background: var(--background);
+    @include mixin.absolute-center;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    box-shadow: var(--box-shadow);
+  }
+
+  &.sm {
+    font-size: var(--alert-font-size-sm);
+  }
+
+  p,
+  li {
+    position: relative;
+    z-index: 1;
+    font-size: var(--fs11);
+  }
+
+  p {
+    margin: 0;
+  }
+
+  &.dismissed {
+    height: 0px !important;
+    opacity: 0;
+    border-width: 0;
+    margin: 0 0.5rem;
+  }
+
+  button {
+    &::before,
+    &::after {
+      background: var(--color);
+    }
+  }
+
+  &.success {
+    --alert-background: var(--success-500);
+    --alert-overlay: var(--success-700);
+    --alert-color: var(--success-on);
+    --alert-subtle-color: var(--success-700);
+    --alert-icon-color: var(--alert-color);
+  }
+
+  &.caution {
+    --alert-background: var(--caution-500);
+    --alert-overlay: var(--caution-700);
+    --alert-color: var(--caution-on);
+    --alert-subtle-color: var(--caution-700);
+    --alert-icon-color: var(--alert-color);
+  }
+
+  &.urgent {
+    --alert-background: var(--urgent-500);
+    --alert-overlay: var(--urgent-700);
+    --alert-color: var(--urgent-on);
+    --alert-subtle-color: var(--urgent-700);
+    --alert-icon-color: var(--alert-color);
+  }
+
+  &.primary {
+    --alert-background: var(--primary-500);
+    --alert-overlay: var(--primary-700);
+    --alert-color: var(--primary-on);
+    --alert-subtle-color: var(--primary-700);
+    --alert-icon-color: var(--alert-color);
+  }
+
+  &.accent {
+    --alert-background: var(--accent-500);
+    --alert-overlay: var(--accent-700);
+    --alert-color: var(--accent-on);
+    --alert-subtle-color: var(--accent-700);
+    --alert-icon-color: var(--alert-color);
+  }
+
+  &.toast {
+    position: absolute;
+    z-index: 8;
+    width: 100%;
+    bottom: 0.5rem;
+    left: 50%;
+    padding: 1rem;
+    transform: translate(-50%, 120%);
+    transition: all 0.25s ease;
+    opacity: 0;
+    box-shadow: var(--box-shadow);
+
+    &.visible {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+
+    &.auto {
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 100%;
+        background: var(--overlay);
+        z-index: 1;
+      }
+    }
+  }
+
+  &.dismissable {
+    padding: 1rem 3rem 1rem 2rem;
+
+    button.dismiss {
+      background: transparent;
+      border: transparent;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 0.75rem;
+      width: 0.75rem;
+      height: 0.75rem;
+      padding: 0;
+      margin: 0;
+      z-index: 1;
+      opacity: 0.75;
+      transition: all 0.5s ease;
+
+      &::before,
+      &::after {
+        content: "";
+        height: 2px;
+        width: 100%;
+        display: block;
+        position: absolute;
+        transition: all 0.5s ease;
+      }
+
+      &::before {
+        transform: rotate(45deg);
+      }
+
+      &::after {
+        transform: rotate(-45deg);
+      }
+
+      &:hover,
+      &:focus {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+// quick positioning for anything that becomes a toast parent
+.toast-parent {
+  position: relative;
+}
+
+// and some styles for forms
+form {
+  .alert.toast {
+    max-width: 80%;
+    text-align: center;
+  }
+}

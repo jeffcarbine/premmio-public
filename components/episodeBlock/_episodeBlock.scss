@@ -1,0 +1,91 @@
+@use "../../styles/breakpoints";
+@use "../embeddedYouTubeVideo/embeddedYouTubeVideo";
+
+:root {
+  --episodeBlock-background: var(--background-600);
+  --episodeBlock-color: var(--foreground-900);
+  --episodeBlock-max-width: #{breakpoints.$md};
+}
+
+.episodeBlock {
+  .thumbnailContainer {
+    img {
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+  }
+
+  .thumbnail,
+  .embeddedYouTubeVideo {
+    width: 100%;
+    max-height: 50vh;
+    object-fit: contain;
+  }
+
+  .description {
+    margin: 1rem 0;
+  }
+
+  &.summary {
+    padding: 1rem;
+    background: var(--episodeBlock-background);
+    color: var(--episodeBlock-color);
+    max-width: var(--episodeBlock-max-width);
+    margin: 1rem auto;
+
+    + .episodeBlock {
+      margin-top: 2rem;
+    }
+  }
+
+  &.page {
+    .thumbnailContainer {
+      margin: 2rem 0;
+    }
+
+    #spotifyPlayer {
+      margin: 2rem 0;
+    }
+
+    .episodeNavigation {
+      display: flex;
+      margin: 1rem 0 4rem 0;
+
+      a {
+        flex: 1 1 50%;
+        color: var(--accent-500);
+        position: relative;
+
+        svg.icon {
+          width: 2rem;
+          height: 2rem;
+          fill: var(--accent-500);
+        }
+
+        &.previousEpisode {
+          padding-left: 2rem;
+          text-align: left;
+
+          svg.icon {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+          }
+        }
+
+        &.nextEpisode {
+          padding-right: 2rem;
+          text-align: right;
+
+          svg.icon {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,145 @@
+﻿@use "../../components/alert/alert";
+
+@keyframes spinner {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+form {
+  --form-max-width: 30rem;
+
+  display: flex;
+  text-align: left;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: var(--form-max-width);
+  position: relative;
+  padding: 2rem;
+  box-sizing: border-box;
+
+  &.centered {
+    margin: 0 auto;
+  }
+
+  &.loading {
+    > * {
+      opacity: 0.25;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      z-index: 2;
+      top: 50%;
+      left: 50%;
+    }
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  .linebreak {
+    flex: 0 0 100%;
+    height: 0px;
+  }
+
+  br {
+    display: none;
+  }
+
+  fieldset {
+    width: 100%;
+    padding: 1.5rem;
+    box-sizing: border-box;
+    border: 0.125rem solid var(--border-color);
+    border-radius: var(--border-radius);
+
+    legend {
+      font-size: var(--fs9);
+
+      padding: 0.5rem;
+    }
+
+    fieldset {
+      legend {
+        font-size: var(--fs10);
+      }
+
+      + fieldset {
+        margin-top: 2rem;
+      }
+    }
+  }
+
+  .btn-container {
+    margin-top: 3rem;
+    width: 100%;
+  }
+
+  // label:not([for]),
+  // *:not(label) {
+  //   flex: 0 0 100%;
+  // }
+
+  // label[for] {
+  //   flex: 0 0 100%;
+  //   margin: 0.5rem 0.5rem 0.75rem 0;
+  //   box-sizing: border-box;
+  //   white-space: nowrap;
+
+  //   + input[type="checkbox"],
+  //   + input[type="radio"] {
+  //     + label[for] {
+  //       margin-top: -0.5rem;
+  //     }
+  //   }
+  // }
+
+  // .toggle {
+  //   margin: 1rem 0;
+  // }
+}
+
+// @media (min-width: breakpoints.$md) {
+//   form {
+//     // label:not([for]) {
+//     //   &.sm {
+//     //     flex: 1 0 calc(33% - 0.25rem);
+//     //     max-width: 50%;
+
+//     //     + label.sm {
+//     //       margin-left: 0.5rem;
+//     //     }
+//     //   }
+//     // }
+
+//     // label[for] {
+//     //   flex: 0 1 auto;
+
+//     //   // not sure why I wrote this originally, so let's get rid of it?
+//     //   // I'll leave it commented out for a little bit mientras and if
+//     //   // it doesn't break anything, we'll just remove it in a future dist
+//     //   /*+ input[type="checkbox"], + input[type="radio"] {
+//     //             + label[for] {
+//     //                 margin-top: .5rem;
+//     //                 margin-left: .5rem;
+//     //             }
+//     //         }*/
+//     // }
+
+//     // &.inline {
+//     //   display: flex;
+
+//     //   label {
+//     //     flex: 1 1 auto;
+//     //     margin: 0.5rem 0.5rem !important;
+//     //   }
+
+//     //   button {
+//     //     flex: 0 0 auto;
+//     //   }
+//     // }
+//   }
+// }

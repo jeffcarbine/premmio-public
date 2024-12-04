@@ -1,0 +1,50 @@
+@mixin style {
+  display: inline-block;
+  padding: 0.375rem 0.75rem 0.5rem 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background: var(--background-400);
+  color: var(--foreground-600);
+  border-radius: 5px;
+
+  &.sm {
+    font-size: var(--fs12);
+
+    padding: 0.25rem 0.5rem 0.375rem 0.5rem;
+  }
+
+  &.primary,
+  &[data-status="primary"] {
+    background: var(--primary-500);
+    color: var(--primary-on);
+  }
+
+  &.accent,
+  &[data-status="accent"] {
+    background: var(--accent-500);
+    color: var(--accent-on);
+  }
+
+  &.urgent,
+  &[data-status="urgent"] {
+    background: var(--urgent-500);
+    color: var(--urgent-on);
+  }
+
+  &.success,
+  &[data-status="success"] {
+    background: var(--success-500);
+    color: var(--success-on);
+  }
+
+  &.caution,
+  &[data-status="caution"] {
+    background: var(--caution-500);
+    color: var(--caution-on);
+  }
+}
+
+.chip {
+  @include style;
+}

@@ -1,0 +1,26 @@
+:root {
+  --fullscreen: calc(var(--vh, 1vh) * 100);
+}
+
+// body flexing
+html {
+  height: 100vh; // fallback for browsers that don't support custom properties
+  height: var(--fullscreen);
+
+  body {
+    font-family: var(--base-font-family);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--background-700);
+    color: var(--foreground-600);
+
+    > * {
+      flex: 0 0 auto;
+    }
+
+    > .main {
+      flex: 1 1 auto;
+    }
+  }
+}

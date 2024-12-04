@@ -1,0 +1,60 @@
+:root {
+  // 9px is the smallest your fonts should ever go for WCAG (
+  --root-font-size: 12pt;
+
+  --base-font-family: "Open Sans", sans-serif;
+  --base-line-height: calc(var(--base-font-size) * 1.5);
+  --base-font-weight: 300;
+
+  --base-font-size: var(--root-font-size);
+  --base-font-multiplier: 0.1; // this ensures that f12 ~= 9px, which is the smallest WCAG allows for
+
+  // font sizes f1 - f10
+  $base-font-size-increase: calc(1 + var(--base-font-multiplier));
+  --base-font-line-height-multiplier: 0.8;
+
+  // f0 font size which is 5x the root-font-size
+  --f0-font-size: calc(var(--root-font-size) * 7);
+  --f0-line-height: calc(
+    var(--f0-font-size) * var(--base-font-line-height-multiplier)
+  );
+
+  @for $i from 0 through 9 {
+    $level: calc(10 - $i);
+    $increasePower: 1;
+
+    @for $ii from 0 to $i {
+      $increasePower: calc(#{$increasePower} * #{$base-font-size-increase});
+    }
+
+    --f#{$level}-font-size: calc(var(--base-font-size) * #{$increasePower});
+
+    --f#{$level}-line-height: calc(
+      var(--f#{$level}-font-size) * var(--base-font-line-height-multiplier)
+    );
+  }
+
+  // font sizes f11 & f12
+  $base-font-size-decrease: calc(1 - var(--base-font-multiplier));
+
+  @for $i from 1 through 2 {
+    $level: calc(10 + $i);
+    $decreasePower: 1;
+
+    @for $ii from 0 to $i {
+      $decreasePower: calc(#{$decreasePower} * #{$base-font-size-decrease});
+    }
+
+    --f#{$level}-font-size: calc(var(--base-font-size) * #{$decreasePower});
+
+    --f#{$level}-line-height: calc(
+      var(--f#{$level}-font-size) * var(--base-font-line-height-multiplier)
+    );
+  }
+
+  // p
+  --p-margin: calc(var(--base-font-size) * 0.75);
+
+  // strong
+  --strong-font-weight: 700;
+}

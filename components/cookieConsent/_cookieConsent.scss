@@ -1,0 +1,80 @@
+@use "../../styles/breakpoints";
+@use "../../styles/animations";
+@use "../../components/modal/modal";
+
+#cookieConsent {
+  position: fixed;
+  z-index: 100;
+  bottom: 1rem;
+  left: 1rem;
+  width: calc(100% - 2rem);
+
+  .message {
+    width: 100%;
+    background: var(--background-700);
+    color: var(--foreground-600);
+    padding: 1rem;
+    box-sizing: border-box;
+    box-shadow: var(--box-shadow);
+    opacity: 0;
+    animation: fadeInUp 0.5s forwards;
+    animation-delay: 1s;
+
+    &.hidden {
+      display: none;
+    }
+
+    .explanation {
+      font-size: var(--fs12);
+
+      h2 {
+        font-size: var(--fs8);
+
+        margin: 0.5rem 0;
+      }
+
+      p {
+        margin-top: 0;
+      }
+    }
+
+    .actions {
+      .btn-container {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  #cookieToggle {
+    h2 {
+      font-size: var(--fs7);
+
+      letter-spacing: 0;
+    }
+
+    p {
+      font-size: var(--fs10);
+    }
+  }
+}
+
+.cookie-definition {
+  padding: 3rem;
+  border: 1px solid var(--border-color);
+  margin: 1rem auto;
+
+  ul {
+    padding: 0;
+    margin: 0;
+
+    li {
+      list-style-type: none;
+    }
+  }
+}
+
+@media (width > breakpoints.$md) {
+  #cookieConsent {
+    width: 30rem;
+  }
+}

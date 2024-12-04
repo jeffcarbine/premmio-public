@@ -1,0 +1,113 @@
+@keyframes logoCircle {
+  0% {
+    stroke-dasharray: 464px;
+    stroke-dashoffset: 464px;
+  }
+
+  50% {
+    stroke-dasharray: 464px;
+    stroke-dashoffset: 0px;
+  }
+
+  100% {
+    stroke-dasharray: 464px;
+    stroke-dashoffset: 0px;
+  }
+}
+
+@keyframes logoText {
+  0% {
+    width: 0;
+    opacitiy: 0;
+  }
+
+  50% {
+    width: 9rem;
+    opacity: 0;
+  }
+
+  55% {
+    width: 9rem;
+    opacity: 0;
+    scale: 1.2;
+  }
+
+  100% {
+    width: 9rem;
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+
+  33% {
+    transform: scale(1.05);
+  }
+
+  66% {
+    transform: scale(0.95);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+[data-component="premmioCredit"] {
+  margin-top: 5rem;
+  margin-bottom: -5rem;
+  padding: 2rem;
+
+  .premmioLogo {
+    width: 100%;
+    max-width: 12.5rem;
+    margin: 0 auto;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    fill: inherit;
+    stroke: inherit;
+
+    svg {
+      fill: inherit;
+      stroke: inherit;
+
+      &:nth-of-type(1) {
+        width: 3rem;
+        stroke-dasharray: 464px;
+        stroke-dashoffset: 464px;
+      }
+
+      &:nth-of-type(2) {
+        width: 0;
+        opacity: 0;
+      }
+    }
+
+    &.animated {
+      animation: pop 0.375s forwards;
+      animation-delay: 2.125s;
+
+      svg {
+        &:nth-of-type(1) {
+          animation: logoCircle 1s forwards;
+          animation-delay: 0.5s;
+        }
+
+        &:nth-of-type(2) {
+          animation: logoText 1s forwards;
+          animation-delay: 1s;
+        }
+      }
+    }
+  }
+
+  .message {
+    margin-top: 1rem;
+    font-size: var(--fs13);
+  }
+}

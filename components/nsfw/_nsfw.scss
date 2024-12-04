@@ -1,0 +1,6 @@
+body:not(.nsfw-allowed) {
+  [data-nsfw="true"] {
+    filter: blur(20px);
+    pointer-events: none;
+  }
+}

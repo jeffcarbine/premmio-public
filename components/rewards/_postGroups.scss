@@ -1,0 +1,24 @@
+@use "../../styles/mixin";
+@use "../../styles/breakpoints";
+
+#collections {
+  margin: 2rem 0 4rem 0;
+
+  #collectionsList {
+    &.loading {
+      height: 20rem;
+    }
+  }
+}
+
+#collection {
+  max-width: breakpoints.$lg;
+  margin: 0 auto;
+}
+
+.groupPosts {
+  &.grid {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

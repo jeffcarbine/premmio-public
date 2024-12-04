@@ -1,0 +1,148 @@
+:root {
+  --font-size-increase: 1.125;
+  --subheading-percent: 0.5;
+  --fs10: 1rem;
+
+  // for 1 through 10 we want to increase the font size
+  // there is also a fs0 that is larger than fs1 for times
+  // when you need extra-large text
+  @for $i from 10 through 1 {
+    $level: calc(10 - $i);
+    $increasePower: 1;
+
+    @for $ii from 0 to $i {
+      $increasePower: calc(#{$increasePower} * var(--font-size-increase));
+    }
+
+    --fs#{$level}: calc(1rem * #{$increasePower});
+  }
+
+  // for 11 through 14 we actually want to go smaller than the base font size
+  // eventually reaching the smallest value of ~9px with 14
+  --font-size-decrease: 1 / var(--font-size-increase);
+
+  @for $i from 1 through 4 {
+    $level: calc(10 + $i);
+    $decreasePower: 1;
+
+    @for $ii from 0 to $i {
+      $decreasePower: calc(#{$decreasePower} * var(--font-size-decrease));
+    }
+
+    --fs#{$level}: calc(1rem * #{$decreasePower});
+  }
+}
+
+// set default font size and line height for headings
+@for $i from 1 through 6 {
+  h#{$i} {
+    font-size: var(--fs#{$i});
+  }
+}
+
+// default behavior for font elements
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hgroup {
+  + p {
+    margin-top: 1.5rem;
+  }
+}
+
+p {
+  + h1,
+  + h2,
+  + h3,
+  + h4,
+  + h5,
+  + h6,
+  + hgroup {
+    margin-top: 2.5rem;
+  }
+}
+
+em {
+  font-style: italic;
+}
+
+strong {
+  font-weight: bold;
+}
+
+ul,
+ol {
+  li {
+    line-height: 1.5em;
+    margin: 0.5rem 0;
+  }
+}
+
+sup {
+  font-size: 0.5em;
+  vertical-align: top;
+}
+
+sub {
+  font-size: 0.5em;
+  vertical-align: bottom;
+}
+
+// set default behavior for hgroup p elements
+hgroup {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  @for $i from 1 through 6 {
+    &:has(h#{$i}) p {
+      font-size: calc(var(--fs#{$i}) * var(--subheading-percent));
+    }
+  }
+}
+
+// create [data-zoom] properties for the html element that will change the root font
+// size based on the zoom level, based on WCAG's 125%, 150%, 175%, and 200% zoom levels
+html {
+  --base-font-size: 100%;
+  font-size: var(--base-font-size);
+
+  &[data-zoom="125"] {
+    font-size: calc(var(--base-font-size) * 1.25);
+  }
+
+  &[data-zoom="150"] {
+    font-size: calc(var(--base-font-size) * 1.5);
+  }
+
+  &[data-zoom="175"] {
+    font-size: calc(var(--base-font-size) * 1.75);
+  }
+
+  &[data-zoom="200"] {
+    font-size: calc(var(--base-font-size) * 2);
+  }
+}
+
+body {
+  * {
+    line-height: 1em;
+  }
+
+  p {
+    line-height: 1.5em;
+  }
+}

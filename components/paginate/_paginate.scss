@@ -1,0 +1,64 @@
+[data-component="paginate"] {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  > ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 0.125rem;
+
+    li {
+      margin: 0 5px;
+      list-style-type: none;
+      display: none;
+      flex: 0 0 auto;
+      height: 100%;
+      text-align: center;
+      align-content: center;
+
+      &.active,
+      &.visible,
+      &.previous,
+      &.next {
+        display: block;
+      }
+
+      &.previous,
+      &.next {
+        &.disabled {
+          pointer-events: none;
+          opacity: 0.25;
+        }
+      }
+
+      button {
+        height: 100%;
+        background: transparent;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        &:hover {
+          background: transparent;
+        }
+
+        svg.icon {
+          width: 2rem;
+          height: 2rem;
+        }
+      }
+
+      &.active {
+        a {
+          font-weight: 700;
+        }
+      }
+    }
+  }
+}

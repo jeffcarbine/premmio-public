@@ -1,0 +1,27 @@
+.clickToCopy {
+  --text-background: var(--light-200);
+
+  display: flex;
+  width: 100%;
+
+  .text {
+    flex: 0 1 auto;
+    overflow: scroll;
+    background: var(--text-background);
+
+    > div {
+      white-space: nowrap;
+      height: 100%;
+      padding: 1rem;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+
+  .btn {
+    flex: 0 0 auto;
+    margin: 0;
+  }
+}

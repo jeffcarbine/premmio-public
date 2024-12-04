@@ -1,0 +1,26 @@
+@mixin background {
+  --placeholder-gradient-1: var(--background-700);
+  --placeholder-gradient-2: var(--background-400);
+
+  overflow: hidden;
+  animation: placeholder 1.7s forwards;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  background: var(--placeholder-graident-1);
+  background: linear-gradient(
+    to right,
+    var(--placeholder-gradient-1) 10%,
+    var(--placeholder-gradient-2) 40%,
+    var(--placeholder-gradient-1) 70%
+  );
+  background-size: 80rem;
+
+  @keyframes placeholder {
+    0% {
+      background-position: -40rem 0;
+    }
+    100% {
+      background-position: 40rem 0;
+    }
+  }
+}

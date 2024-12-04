@@ -1,0 +1,66 @@
+@use "../../styles/mixin";
+@use "../../styles/breakpoints";
+
+:root {
+  --cartToggle-fill: var(--foreground-600);
+}
+
+#cartToggle {
+  width: 3rem;
+  height: 4rem;
+  position: relative;
+  background: rgba(0, 0, 0, 0);
+  margin: 0 auto;
+  display: block;
+  cursor: pointer;
+
+  .positioner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 3rem;
+    height: 3rem;
+
+    .icon {
+      width: 100%;
+      height: 100%;
+      fill: var(--cartToggle-fill);
+      z-index: 1;
+    }
+
+    .itemCount {
+      position: absolute;
+      top: -0.25rem;
+      right: -0.25rem;
+      width: 1.5rem;
+      height: 1.5rem;
+      background: var(--itemCount-background);
+      font-size: var(--fs12);
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      font-weight: 700;
+      border-radius: 50%;
+      z-index: 2;
+
+      .number {
+        color: var(--itemCount-color);
+        transform: var(--itemCount-adjustment);
+      }
+    }
+  }
+}
+
+@media (width > breakpoints.$md) {
+  #cartToggle {
+    position: relative;
+    top: 0;
+    right: 0;
+    padding: 0.5rem;
+    height: auto;
+    margin-right: 1rem;
+  }
+}

@@ -1,0 +1,11 @@
+#latestPosts {
+  margin: 2rem 0 8rem 0;
+}
+
+#latestPostsList {
+  margin: 2rem 0;
+
+  &.loading {
+    height: 20rem;
+  }
+}

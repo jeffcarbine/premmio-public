@@ -1,0 +1,90 @@
+@use "../../styles/mixin";
+
+:root {
+  --iconbubble-background: var(--background-100);
+  --iconbubble-color: var(--foreground-600);
+  --iconbubble-button-background: var(--background-100);
+  --iconbubble-button-color: var(--foreground-600);
+}
+
+:host,
+.iconbubble {
+  display: block;
+  position: relative;
+  width: 1.5rem;
+  height: 0.75rem;
+
+  button {
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.75rem;
+    border-radius: 50%;
+    border: none;
+    font-weight: 100;
+    background: var(--iconbubble-button-background);
+    @include mixin.absolute-center();
+
+    svg,
+    codebase-icon {
+      width: 100%;
+      height: 100%;
+      fill: var(--iconbubble-button-color);
+      pointer-events: none;
+    }
+  }
+
+  .bubble {
+    display: block;
+    position: absolute;
+    top: calc(100% + 1rem);
+    opacity: 0;
+    visibility: hidden;
+    box-shadow: var(--box-shadow);
+    z-index: 1;
+    font-size: 1rem;
+    font-weight: 100;
+    width: 15rem;
+    transition: all 0.5s ease;
+    transition-delay: 0.25s;
+    color: var(--iconbubble-color);
+    background: var(--iconbubble-background);
+    border: none;
+    padding: 0.75rem;
+    border-radius: 5px;
+
+    &::before {
+      content: "";
+      @include mixin.triangle("top", var(--iconbubble-background), 0.5rem, 1);
+      position: absolute;
+      top: -0.5rem;
+    }
+
+    &.hovered,
+    &.clicked {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    &.left,
+    &[data-position="left"] {
+      right: -0.25rem;
+
+      &::before {
+        right: 0.5rem;
+      }
+    }
+
+    &.right,
+    &[data-position="right"] {
+      left: -0.25rem;
+
+      &::before {
+        left: 0.5rem;
+      }
+    }
+  }
+}

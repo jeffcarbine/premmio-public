@@ -1,0 +1,61 @@
+@use "../../styles/breakpoints";
+
+[data-component="announcement"] {
+  box-sizing: border-box;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 20;
+  background: var(--accent-600);
+  color: var(--accent-on);
+  padding: 1.5rem;
+  box-shadow: 0px -5px 20px rgba(0, 0, 0, 0.25);
+
+  > div {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+
+    p {
+      flex: 0 0 auto;
+      margin: 0;
+      max-width: 100%;
+      text-align: center;
+    }
+
+    .btn {
+      flex: 0 0 auto;
+      margin-top: 1rem;
+    }
+  }
+
+  .modal-title {
+    padding: 0;
+
+    h2 {
+      font-size: var(--fs6);
+
+      margin: 0;
+    }
+  }
+}
+
+@media (width > breakpoints.$md) {
+  [data-component="announcement"] {
+    padding: 1rem;
+
+    > div {
+      p {
+        text-align: left;
+      }
+
+      .btn {
+        margin-top: 0.25rem;
+        margin-bottom: 0;
+        margin-left: 1rem;
+      }
+    }
+  }
+}

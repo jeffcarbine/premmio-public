@@ -1,0 +1,16 @@
+@use "../../styles/breakpoints";
+@use "../../styles/mixin";
+
+@use "../../elements/table/table";
+
+.responsiveTable {
+  max-width: 100%;
+  overflow: scroll;
+  @include mixin.hide-scrollbars;
+}
+
+@media (width > breakpoints.$md) {
+  .table-wrapper {
+    overflow: visible;
+  }
+}

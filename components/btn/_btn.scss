@@ -1,0 +1,466 @@
+@use "../../styles/breakpoints";
+
+:root {
+  --btn-border-radius: var(--border-radius);
+
+  --btn-background: var(--primary-500);
+  --btn-color: var(--primary-on);
+  --btn-focus-background: var(--primary-700);
+  --btn-focus-color: var(--primary-on);
+
+  --btn-bubble-color: var(--urgent-on);
+  --btn-bubble-background: var(--urgent-500);
+
+  --btn-font-weight: 400;
+  --btn-font-size: var(--fs9);
+  --btn-padding-y: 0.75rem;
+  --btn-padding-x: 1.5rem;
+
+  --btn-container-space: 0.5rem;
+
+  --btn-icon-size: 0.75rem;
+
+  --btn-icon-only-dimension: 1.5rem;
+
+  --btn-border-width: 1px;
+}
+
+button.btn {
+  outline: none;
+  cursor: pointer;
+}
+
+.btn {
+  --loader-color: var(--btn-color);
+
+  outline: none;
+  padding: var(--btn-padding-y) var(--btn-padding-x);
+  border: var(--btn-border-width) solid var(--btn-background);
+  transition: background-color 0.25s ease, border-color 0.25s ease,
+    color 0.25s ease, padding 0.25s ease;
+  font-size: inherit;
+  text-decoration: none;
+  line-height: var(--btn-line-height);
+  display: inline-block;
+  font-weight: var(--btn-font-weight);
+  font-family: unset; // override browser defaults and listen to the body
+  margin: 0.25rem 0;
+  background: var(--btn-background);
+  color: var(--btn-color);
+  border-radius: var(--btn-border-radius);
+  cursor: pointer;
+  position: relative;
+
+  &.loading {
+    min-height: 0; // don't subscribe to loading min-heights
+
+    > span:not(.bubble) {
+      opacity: 0.25;
+    }
+
+    &::after {
+      transform: translate(-50%, -50%) scale(0.2);
+    }
+  }
+
+  .bubble {
+    position: absolute;
+    top: 0.25rem;
+    right: 0.25rem;
+    transform: translate(50%, -50%);
+    color: var(--btn-bubble-color);
+    background: var(--btn-bubble-background);
+    border-radius: 50%;
+    padding: 0.25rem;
+    font-size: 0.75em;
+    line-height: 1;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1rem;
+    min-height: 1rem;
+  }
+
+  svg.icon {
+    width: var(--btn-icon-size);
+    height: var(--btn-icon-size);
+    fill: var(--btn-color);
+    transform: scale(2.5);
+    margin-right: 0.75em;
+    transition: fill 0.25s ease;
+  }
+
+  &.icon-end {
+    svg.icon {
+      margin-right: 0;
+      margin-left: 0.5em;
+    }
+  }
+
+  &.sm {
+    --btn-icon-only-dimension: 1rem;
+
+    font-size: var(--fs12);
+
+    padding: calc(var(--btn-padding-y) * 0.75) calc(var(--btn-padding-x) * 0.75);
+
+    svg.icon {
+      width: calc(var(--btn-icon-size) * 0.75);
+      height: calc(var(--btn-icon-size) * 0.75);
+    }
+  }
+
+  // hover is enabled in the breakpoint-md
+  &:focus,
+  &.active {
+    background: var(--btn-focus-background);
+    color: var(--btn-focus-color);
+    border-color: var(--btn-focus-background);
+
+    svg.icon {
+      fill: var(--btn-focus-color);
+    }
+  }
+
+  &.outline {
+    background: transparent;
+    color: var(--btn-background);
+
+    &:focus {
+      background: var(--btn-background);
+      border-color: var(--btn-background);
+      color: var(--btn-color);
+    }
+  }
+
+  &.accent {
+    --btn-background: var(--accent-500);
+    --btn-focus-background: var(--accent-600);
+    --btn-color: var(--accent-on);
+    --btn-focus-color: var(--accent-on);
+  }
+
+  &.subtle {
+    --btn-background: var(--background-800);
+    --btn-focus-background: var(--background-600);
+    --btn-color: var(--foreground-900);
+    --btn-focus-color: var(--foreground-800);
+  }
+
+  &.foreground {
+    --btn-background: var(--foreground-800);
+    --btn-focus-background: var(--foreground-700);
+    --btn-color: var(--background-900);
+    --btn-focus-color: var(--background-700);
+  }
+
+  &.background {
+    --btn-background: var(--background-800);
+    --btn-focus-background: var(--background-700);
+    --btn-color: var(--foreground-900);
+    --btn-focus-color: var(--foreground-800);
+  }
+
+  &.light {
+    --btn-background: var(--light-800);
+    --btn-focus-background: var(--light-700);
+    --btn-color: var(--dark-800);
+    --btn-focus-color: var(--dark-800);
+  }
+
+  &.dark {
+    --btn-background: var(--dark-800);
+    --btn-focus-background: var(--dark-900);
+    --btn-color: var(--light-800);
+    --btn-focus-color: var(--light-800);
+  }
+
+  &.urgent {
+    --btn-background: var(--urgent-500);
+    --btn-focus-background: var(--urgent-600);
+    --btn-color: var(--urgent-on);
+    --btn-focus-color: var(--urgent-on);
+  }
+
+  &.caution {
+    --btn-background: var(--caution-500);
+    --btn-focus-background: var(--caution-600);
+    --btn-color: var(--caution-on);
+    --btn-focus-color: var(--caution-on);
+  }
+
+  &.success {
+    --btn-background: var(--success-500);
+    --btn-focus-background: var(--success-600);
+    --btn-color: var(--success-on);
+    --btn-focus-color: var(--success-on);
+  }
+
+  &.transparent {
+    background: transparent;
+    border: none;
+
+    --btn-color: var(--btn-background);
+    --btn-focus-color: var(--btn-focus-background);
+
+    &:hover {
+      background: transparent;
+      border: none;
+    }
+  }
+
+  &.icon-only {
+    --btn-padding-x: 0.5rem;
+    --btn-padding-y: 0.5rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    > span:not(.bubble) {
+      width: var(--btn-icon-only-dimension);
+      height: var(--btn-icon-only-dimension);
+    }
+
+    svg.icon {
+      width: var(--btn-icon-only-dimension);
+      height: var(--btn-icon-only-dimension);
+      transform: scale(1.5);
+      margin: 0;
+    }
+  }
+
+  // arrow btns
+  &.arrow {
+    padding-right: calc(var(--btn-padding-y) + 1rem) !important;
+
+    &::after {
+      content: "";
+      display: block;
+      width: 0.375rem;
+      height: 0.375rem;
+      border-right: 2px solid var(--btn-color);
+      border-bottom: 2px solid var(--btn-color);
+      border-radius: 1px;
+      position: absolute;
+      top: 50%;
+      right: 0.75rem;
+      transform: translateY(-50%) rotate(-45deg);
+    }
+  }
+
+  // this is used to vertically align the text/icons better within the button
+  > span:not(.bubble) {
+    display: block;
+    position: relative;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  // &.loading {
+  //   color: var(--btn-background);
+  //   --btn-focus-color: var(--btn-background);
+  //   --btn-focus-background: var(--btn-background);
+
+  //   span {
+  //     opacity: 0;
+  //   }
+
+  //   svg.icon {
+  //     opacity: 0;
+  //   }
+  // }
+
+  // &.block {
+  //   display: block;
+  //   width: 100%;
+  // }
+}
+
+// .radioLabel,
+// .checkboxLabel {
+//   &.btn {
+//     input {
+//       visibility: hidden;
+//       position: absolute;
+//       pointer-events: none;
+//       width: 1px;
+//       height: 1px;
+//     }
+
+//     label {
+//       width: 100%;
+//       height: 100%;
+//     }
+//   }
+// }
+
+.btn-container {
+  margin: 1rem 0;
+  display: flex;
+  gap: var(--btn-container-space);
+  flex-wrap: wrap;
+  flex: 0 0 auto;
+  align-content: center;
+
+  &.centered {
+    justify-content: center;
+  }
+
+  &.right {
+    justify-content: flex-end;
+  }
+
+  &.minimal {
+    margin: 0;
+  }
+
+  > * {
+    &:not(.icon-only) {
+      width: auto;
+    }
+  }
+}
+
+@media (width > breakpoints.$md) {
+  .btn {
+    &:hover {
+      background: var(--btn-focus-background);
+      color: var(--btn-focus-color);
+      border-color: var(--btn-focus-background);
+
+      svg.icon {
+        fill: var(--btn-focus-color);
+      }
+    }
+
+    &.outline {
+      &:hover {
+        background: var(--btn-background);
+        border-color: var(--btn-background);
+        color: var(--btn-color);
+      }
+    }
+  }
+}
+
+// MOREBtns
+
+.moreBtns {
+  position: relative;
+  margin: 0.25rem 0;
+
+  > .btn {
+    position: relative;
+    z-index: 2;
+    margin: 0;
+  }
+
+  .btns {
+    position: absolute;
+    left: 0;
+    z-index: 1;
+    white-space: nowrap;
+    height: 0;
+    width: 100%;
+
+    .moreBtn {
+      position: absolute;
+      top: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+
+      .btn {
+        margin-top: 0;
+      }
+    }
+  }
+
+  &[data-xalignment="right"] {
+    .btns {
+      .moreBtn {
+        right: 50%;
+      }
+    }
+  }
+
+  &[data-xalignment="left"] {
+    .btns {
+      .moreBtn {
+        left: 50%;
+      }
+    }
+  }
+
+  &[data-yalignment="bottom"] {
+    .btns {
+      bottom: -0.25rem;
+
+      .moreBtn {
+        transform: translateY(-100%);
+
+        .btn {
+          border-top-right-radius: 0;
+        }
+      }
+    }
+  }
+
+  &[data-yalignment="top"] {
+    .btns {
+      top: -0.25rem;
+
+      .moreBtn {
+        .btn {
+          border-bottom-right-radius: 0;
+        }
+      }
+    }
+  }
+
+  &.active {
+    z-index: 100;
+
+    .btns {
+      .moreBtn {
+        opacity: 1;
+        pointer-events: all;
+      }
+    }
+
+    &[data-yalignment="bottom"] {
+      .btns {
+        .moreBtn {
+          @for $i from 0 to 10 {
+            &:nth-of-type(#{$i + 1}) {
+              transform: translateY(calc(100% * #{$i}));
+            }
+          }
+        }
+      }
+    }
+
+    &[data-yalignment="top"] {
+      .btns {
+        .moreBtn {
+          @for $i from 1 to 10 {
+            &:nth-of-type(#{$i}) {
+              transform: translateY(calc(-100% * #{$i}));
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // if it doesn't have a data-alignment attribute
+  // the .btns are set to display none
+  &[data-xalignment=""],
+  &[data-yalignment=""] {
+    .btns {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,462 @@
+﻿@use "../../styles/mixin";
+/**
+    Input
+    Text/number inputs, textareas, checkbox, radios and all their variants
+*/
+
+:root {
+  --input-placeholder-color: var(--primary-500);
+
+  --checkbox-radio-font-size: 1rem;
+  --checkbox-radio-background-color: var(--background-700);
+  --checkbox-radio-color: var(--foreground-600);
+  --checkbox-radio-focus-background-color: var(--background-400);
+  --checkbox-radio-focus-border-color: var(--accent-500);
+
+  --input-background: transparent;
+  --input-color: var(--foreground-600);
+  --input-font-size: 16px; // note, this is to keep inputs from zooming on mobile devices, so modifiy at your own risk
+  --input-active-border-color: var(--accent-500);
+  --input-invalid-color: var(--negative);
+  --input-invalid-border-color: var(--input-invalid-color);
+  --input-focus-background: var(--primary-500);
+  --validation-message-color: var(--input-invalid-border-color);
+}
+
+// animation
+@keyframes labelBefore {
+  0% {
+    width: 1px;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.025);
+  }
+
+  100% {
+    width: 1200px;
+    height: 1200px;
+    background: transparent;
+  }
+}
+
+// autofill fix?
+@keyframes autofill {
+  0%,
+  100% {
+    color: #666;
+    background: transparent;
+  }
+}
+
+input:-webkit-autofill {
+  animation: autofill 0.5s forwards;
+  animation-delay: 1s; /* Safari support - any positive time runs instantly */
+}
+
+// some general input cleanup
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.style-inputs {
+  label {
+    --label-background: var(--background-400);
+    --label-color: var(--foreground-600);
+    --label-font-size: 1rem;
+    --label-line-height: 1rem;
+    --label-focus-font-size: 0.75rem;
+    --label-active-color: var(--foreground-100);
+    --label-active-border-color: var(--accent-500);
+    --label-border-radius: var(--border-radius);
+    --label-round-border-radius: 50px;
+    --label-padding: 1.25rem 0.5rem;
+    --label-round-padding: 1.25rem;
+    --label-active-padding: 0.5rem 0.5rem 2rem 0.5rem;
+    --label-round-active-padding: 0.5rem 0.5rem 2rem 1rem;
+
+    color: var(--label-color);
+    font-size: var(--label-font-size);
+    line-height: var(--label-line-height);
+    transition: all 0.125s linear;
+    overflow: hidden;
+    z-index: 1;
+
+    // some default sizing
+    &.xs {
+      width: 3rem;
+    }
+
+    &.sm {
+      width: 6rem;
+    }
+
+    &.md {
+      width: 12rem;
+    }
+
+    &.lg {
+      width: 18rem;
+    }
+
+    // text/number inputs
+    &:not([for]) {
+      display: block;
+      position: relative;
+      margin: 0.5rem 0;
+      padding: var(--label-padding);
+      box-sizing: border-box;
+      border: 1px solid var(--border-color);
+      border-radius: var(--label-border-radius);
+
+      input,
+      select,
+      textarea {
+        --input-padding: 0.5rem;
+        --select-padding: 0.25rem;
+
+        width: 100%;
+        border: none;
+        background: transparent;
+        outline: none;
+        box-sizing: border-box;
+        font-size: var(--input-font-size);
+        font-family: inherit;
+        cursor: default;
+        opacity: 0;
+        transition: opacity 0.25s ease;
+
+        &::placeholder {
+          color: var(--input-placeholder-color);
+          font-style: italic;
+        }
+      }
+
+      input,
+      select {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: calc(100% - 1rem);
+        z-index: 0;
+      }
+
+      input,
+      textarea {
+        padding: 0 calc(var(--input-padding) + 2px); // just to give it the illusion of being ligned up
+      }
+
+      textarea {
+        padding-top: 0.75rem;
+      }
+
+      select {
+        padding: 0 calc(var(--select-padding) + 2px); // just to give it the illusion of being ligned up
+        width: calc(
+          100% - 0.5rem
+        ); // keeps spacing on the right hand side for the caret
+      }
+
+      &::before,
+      &::after {
+        content: "";
+        display: block;
+        @include mixin.absolute-center();
+      }
+      // this is the background of the label
+      &::after {
+        background: var(--label-background);
+        z-index: -3;
+        height: 100%;
+        width: 100%;
+      }
+      // this is the cool click animation
+      &::before {
+        position: absolute;
+        top: 50%;
+        left: var(--label-before-left);
+        height: 1px;
+        width: 1px;
+        border-radius: 50%;
+        z-index: -2;
+      }
+
+      &.active,
+      &.has-value,
+      &.permanent-active {
+        padding: var(--label-active-padding);
+        color: var(--label-active-color);
+        font-size: var(--label-focus-font-size);
+
+        input,
+        select,
+        textarea {
+          opacity: 1;
+        }
+      }
+
+      &.active {
+        border-color: var(--label-active-border-color);
+
+        &::before {
+          animation: labelBefore 1s forwards;
+          animation-delay: 0.025s;
+        }
+      }
+
+      .field-validation-error {
+        color: var(--validation-message-color);
+        font-size: var(--label-focus-font-size);
+      }
+
+      &.round {
+        padding: var(--label-round-padding);
+        border-radius: var(--label-round-border-radius);
+
+        input,
+        textarea {
+          --input-padding: 1rem;
+        }
+
+        select {
+          --select-padding: 0.5rem;
+        }
+
+        &.active,
+        &.has-value,
+        &.permanent-active {
+          padding: var(--label-round-active-padding);
+        }
+      }
+
+      // for inputXhr stuff
+      &.unsavedChanges {
+        border-color: var(--caution-500);
+        color: var(--foreground-600);
+      }
+
+      &.waiting {
+        &::after {
+          opacity: 0.5;
+          z-index: 0;
+        }
+
+        input,
+        textarea,
+        select {
+          pointer-events: none;
+        }
+      }
+
+      &.success {
+        border-color: var(--success-500);
+        color: inherit;
+      }
+    }
+    // removes mm/dd//yyyy from date inputs
+    // as well as calendar pick icon
+    input[type="date"] {
+      &::-webkit-datetime-edit {
+        color: transparent;
+      }
+
+      &::-webkit-calendar-picker-indicator {
+        display: none;
+      }
+    }
+
+    &.active {
+      input[type="date"] {
+        &::-webkit-datetime-edit {
+          color: inherit;
+        }
+      }
+    }
+  }
+
+  // checkboxes and radios
+  input[type="checkbox"],
+  input[type="radio"] {
+    width: 0px;
+    height: 0px;
+    overflow: hidden;
+    position: relative;
+    z-index: -1;
+    margin: 0;
+    flex: 0 0 auto;
+    // this broke stuff before, but it's breaking more stuff now
+    // so we're going to do it again and make note here that there's
+    // no way to make it vanish in Firefox without using display: none
+    // so if it really breaks stuff, then we need to rethink something
+    // else instead
+    display: none;
+
+    + label {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      padding-left: 1.5rem;
+      cursor: pointer;
+      line-height: var(--base-line-height);
+
+      &::before,
+      &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      &::before {
+        opacity: 0;
+        z-index: 1;
+        transition: all 0.25s ease;
+      }
+
+      &::after {
+        background: var(--checkbox-radio-background-color);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        width: 1rem;
+        height: 1rem;
+        left: 0;
+        z-index: 0;
+        transition: all 0.5s ease;
+      }
+    }
+
+    &:checked {
+      + label {
+        &::before {
+          opacity: 1;
+        }
+      }
+    }
+
+    &:focus {
+      + label {
+        &::after {
+          background: var(--checkbox-radio-focus-background-color);
+          border-color: var(--checkbox-radio-focus-border-color);
+        }
+      }
+    }
+
+    &.contained {
+      + label {
+        padding-left: 0;
+        width: 1rem;
+        display: inline-block;
+        text-align: center;
+        font-size: 0.8rem;
+        border: 1px solid transparent;
+
+        &::before {
+          display: none;
+        }
+
+        &::after {
+          z-index: -1;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+
+      &:checked {
+        + label {
+          &::after {
+            background: var(--checkbox-radio-focus-border-color);
+          }
+        }
+      }
+    }
+  }
+
+  input[type="checkbox"] {
+    + label {
+      &::before {
+        width: 0.25rem;
+        height: 0.5rem;
+        border: 1px solid var(--checkbox-radio-color);
+        border-top: none;
+        border-left: none;
+        transform: translateY(-60%) rotate(45deg);
+        left: 0.45rem;
+      }
+    }
+  }
+
+  input[type="radio"] {
+    + label {
+      &::before,
+      &::after {
+        border-radius: 50%;
+      }
+
+      &::before {
+        left: calc(0.25rem + 1px);
+        width: 0.5rem;
+        height: 0.5rem;
+        background: var(--checkbox-radio-color);
+      }
+    }
+  }
+
+  .inlineInputs {
+    display: flex;
+
+    label {
+      margin-right: 0.25rem;
+
+      &.xs {
+        flex: 0 0 3rem;
+      }
+
+      &.sm {
+        flex: 0 0 6rem;
+      }
+
+      &.md {
+        flex: 0 0 12rem;
+      }
+
+      &.lg {
+        flex: 0 0 15rem;
+      }
+    }
+  }
+
+  .base64ImageInput {
+    .imagePreview {
+      display: block;
+      background: var(--background-400);
+      width: 10rem;
+      height: 10rem;
+      border-radius: var(--border-radius);
+    }
+
+    label:not([for]) {
+      --label-active-padding: 0.5rem 0.5rem 3rem 0.5rem;
+
+      input {
+        height: calc(100% - 2rem);
+      }
+    }
+  }
+}
+
+.hidden-input-group {
+  display: none;
+
+  &.visible {
+    display: block;
+  }
+}

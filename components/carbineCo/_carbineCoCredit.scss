@@ -1,0 +1,49 @@
+.carbine-co-credit {
+  margin-top: 5rem;
+  text-align: center;
+  opacity: 0.75;
+  fill: var(--foreground-600);
+
+  .text {
+    font-size: var(--fs12);
+  }
+
+  .carbine-co-logo,
+  .carbine-co-icon {
+    width: calc(100% - 4rem);
+    display: inline-block;
+    fill: inherit;
+    margin-bottom: 1rem;
+    opacity: 0.05;
+    max-width: 10rem;
+
+    svg {
+      fill: inherit;
+    }
+  }
+}
+
+#ccoCredit {
+  margin: 2rem 0;
+  text-align: center;
+  fill: var(--foreground-600);
+  color: var(--foreground-600);
+
+  .text {
+    font-size: var(--fs12);
+  }
+
+  .carbine-co-icon,
+  .carbine-co-logo {
+    width: calc(100% - 4rem);
+    display: inline-block;
+    fill: inherit;
+    max-width: 6rem;
+    transform: translateX(6%);
+    margin-bottom: 0.5rem;
+
+    svg {
+      fill: inherit;
+    }
+  }
+}

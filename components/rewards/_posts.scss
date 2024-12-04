@@ -1,0 +1,13 @@
+@use "../../styles/mixin";
+@use "../../styles/breakpoints";
+
+@use "latestPosts";
+@use "postGroups";
+@use "postBox";
+@use "postPreview";
+@use "rewardAccess";
+
+#posts {
+  max-width: breakpoints.$lg;
+  margin: 0 auto;
+}

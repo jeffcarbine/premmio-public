@@ -1,0 +1,174 @@
+@use "sass:list";
+@use "sass:string";
+@use "sass:map";
+
+//////////////
+// BREAKPOINTS
+//////////////
+
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+$breakpoint-xxl: 1400px;
+
+// so we can access them
+// via getComputedStyles in JS
+:root {
+  --breakpoint-sm: breakpoints.$sm;
+  --breakpoint-md: breakpoints.$md;
+  --breakpoint-lg: breakpoints.$lg;
+  --breakpoint-xl: breakpoints.$xl;
+  --breakpoint-xxl: breakpoints.$xxl;
+}
+
+@mixin absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin absolute-center-left {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+@mixin absolute-center-right {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+@mixin absolute-center-y {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@mixin hide-scrollbars {
+  /*FireFox*/
+  scrollbar-width: none;
+  /*IE10+*/
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+
+  &::-webkit-scrollbar {
+    /*Chrome, Safari, Edge*/
+    display: none;
+  }
+}
+
+@mixin photoshopCheck {
+  background-image: linear-gradient(
+      45deg,
+      var(--background-400) 25%,
+      transparent 25%
+    ),
+    linear-gradient(-45deg, var(--background-400) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--background-400) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--background-400) 75%);
+  background-color: var(--background-700);
+  background-size: 1rem 1rem;
+  background-position: 0 0, 0 0.5rem, 0.5rem -0.5rem, -0.5rem 0px;
+}
+
+@mixin display-flex($flex-direction) {
+  display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -ms-flexbox; /* TWEENER - IE 10 */
+  display: -webkit-flex; /* NEW - Chrome */
+  display: flex; /* NEW, Spec - Opera 12.1, Firefox 20+ */
+  -webkit-flex-direction: $flex-direction;
+  -ms-flex-direction: $flex-direction;
+  flex-direction: $flex-direction;
+}
+
+@mixin flex($flex-grow, $flex-shrink, $flex-basis) {
+  -webkit-box-flex: $flex-grow; /* OLD - iOS 6-, Safari 3.1-6 */
+  -moz-box-flex: $flex-grow; /* OLD - Firefox 19- */
+  width: $flex-basis; /* For old syntax, otherwise collapses. */
+  -webkit-flex: $flex-grow; /* Chrome */
+  -ms-flex: $flex-grow; /* IE 10 */
+  flex: $flex-grow $flex-shrink $flex-basis;
+}
+
+/// Returns the opposite direction of each direction in a list
+/// @author Kitty Giraudel
+/// @param {List} $directions - List of initial directions
+/// @return {List} - List of opposite directions
+@function opposite-direction($directions) {
+  $opposite-directions: ();
+  $direction-map: (
+    "top": "bottom",
+    "right": "left",
+    "bottom": "top",
+    "left": "right",
+    "center": "center",
+    "ltr": "rtl",
+    "rtl": "ltr",
+  );
+
+  @each $direction in $directions {
+    $direction: string.to-lower-case($direction);
+
+    @if map.has-key($direction-map, $direction) {
+      $opposite-directions: list.append(
+        $opposite-directions,
+        string.unquote(map.get($direction-map, $direction))
+      );
+    } @else {
+      @warn "No opposite direction can be found for `#{$direction}`. Direction omitted.";
+    }
+  }
+
+  @return $opposite-directions;
+}
+
+@mixin triangle(
+  $direction,
+  $color: currentcolor,
+  $size: 1rem,
+  $multiplier: 1.5
+) {
+  display: block;
+  border-#{opposite-direction($direction)}: $size * $multiplier solid $color;
+  border-#{$direction}: none;
+  $perpendicular-border: $size solid transparent;
+
+  @if $direction == top or $direction == bottom {
+    border-left: $perpendicular-border;
+    border-right: $perpendicular-border;
+  } @else if $direction == right or $direction == left {
+    border-bottom: $perpendicular-border;
+    border-top: $perpendicular-border;
+  }
+}
+
+@mixin textStroke($color: var(--accent-500), $width: 0.25rem) {
+  text-shadow: calc(var($width) * 1) calc(var($width) * 0) 0 var($color),
+    calc(var($width) * 0.9239) calc(var($width) * 0.3827) 0 var($color),
+    calc(var($width) * 0.7071) calc(var($width) * 0.7071) 0 var($color),
+    calc(var($width) * 0.3827) calc(var($width) * 0.9239) 0 var($color),
+    calc(var($width) * 0) calc(var($width) * 1) 0 var($color),
+    calc(var($width) * -0.3827) calc(var($width) * 0.9239) 0 var($color),
+    calc(var($width) * -0.7071) calc(var($width) * 0.7071) 0 var($color),
+    calc(var($width) * -0.9239) calc(var($width) * 0.3827) 0 var($color),
+    calc(var($width) * -1) calc(var($width) * 0) 0 var($color),
+    calc(var($width) * -0.9239) calc(var($width) * -0.3827) 0 var($color),
+    calc(var($width) * -0.7071) calc(var($width) * -0.7071) 0 var($color),
+    calc(var($width) * -0.3827) calc(var($width) * -0.9239) 0 var($color),
+    calc(var($width) * 0) calc(var($width) * -1) 0 var($color),
+    calc(var($width) * 0.3827) calc(var($width) * -0.9239) 0 var($color),
+    calc(var($width) * 0.7071) calc(var($width) * -0.7071) 0 var($color),
+    calc(var($width) * 0.9239) calc(var($width) * -0.3827) 0 var($color);
+}
+
+@mixin stroke($color: var(--dark-600), $size: 1px) {
+  text-shadow: -#{$size} -#{$size} 0 $color, 0 -#{$size} 0 $color,
+    #{$size} -#{$size} 0 $color, #{$size} 0 0 $color, #{$size} #{$size} 0 $color,
+    0 #{$size} 0 $color, -#{$size} #{$size} 0 $color, -#{$size} 0 0 $color,
+    -#{$size} 0 $color, 0 #{$size} $color, #{$size} 0 $color, 0 -#{$size} $color;
+  -webkit-text-stroke: #{$size} #{$color};
+}

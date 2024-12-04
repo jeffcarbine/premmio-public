@@ -1,0 +1,57 @@
+﻿@use "../../styles/breakpoints";
+
+.table-wrapper {
+  width: 100%;
+  overflow: scroll;
+}
+
+table {
+  width: 100%;
+  border: 1px solid var(--background-300);
+
+  caption {
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-bottom: none;
+  }
+
+  th,
+  td {
+    padding: 0.25rem;
+    border-right: 1px solid var(--background-600);
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  tr {
+    border-bottom: 1px solid var(--background-300);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  thead {
+    font-weight: 600;
+    border: none;
+  }
+
+  tbody {
+    tr {
+      th {
+        &[scope="row"] {
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
+
+@media (width > breakpoints.$md) {
+  .table-wrapper {
+    overflow: visible;
+  }
+}

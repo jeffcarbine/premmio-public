@@ -1,0 +1,121 @@
+.accordion {
+  --accordion-title-font-size: var(--fs8);
+  --accordion-title-background: var(--background-700);
+  --accordion-title-color: var(--foreground-800);
+  --accordion-title-padding: 1.5rem;
+  --carat-width: calc(var(--accordion-title-font-size) * 0.75);
+  --accordion-body-background: var(--background-900);
+  --accordion-body-color: var(--foreground-600);
+  --accordion-highlight-body-background: var(--caution-700);
+  --accordion-border: 1px solid var(--border-color);
+
+  display: block;
+  border: var(--accordion-border);
+  background: var(--accordion-body-background);
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+
+  + .accordion {
+    margin-top: 1rem;
+  }
+
+  &.sm {
+    --accordion-title-padding: 0.25rem;
+    --accordion-title-font-size: var(--fs12);
+  }
+
+  .accordion-title {
+    display: flex;
+    padding: var(--accordion-title-padding);
+    color: var(--accordion-title-color);
+    background: var(--accordion-title-background);
+    font-size: var(--accordion-title-font-size);
+
+    > *:not(.accordion-button) {
+      flex: 1 1 auto;
+    }
+
+    .accordion-button {
+      flex: 0 0 5rem;
+      cursor: pointer;
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      border: none;
+      box-sizing: border-box;
+      background: transparent;
+
+      &::before,
+      &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 50%;
+        width: var(--carat-width);
+        height: calc(var(--accordion-title-font-size) / 6);
+        background: var(--accordion-title-color);
+        transition: all 0.5s ease;
+      }
+
+      &::before {
+        right: calc(
+          calc(1rem + var(--carat-width)) - calc(var(--carat-width) / 2.5)
+        ); // the 2.5 is just an absolute guess there's no mathmatical logic behind it
+        transform: translateY(-50%) rotate(45deg);
+      }
+
+      &::after {
+        right: 1rem;
+        transform: translateY(-50%) rotate(-45deg);
+      }
+
+      &.open {
+        &::before {
+          transform: translateY(-50%) rotate(-45deg);
+        }
+
+        &::after {
+          transform: translateY(-50%) rotate(45deg);
+        }
+      }
+    }
+  }
+
+  .accordion-body {
+    position: absolute;
+    width: 100%;
+    visibility: hidden;
+    overflow: hidden;
+    color: var(--accordion-body-color);
+    background: var(--accordion-body-background);
+    box-sizing: border-box;
+    transition: height 0.5s ease;
+    z-index: -1;
+    padding: 0 2rem;
+    opacity: 0;
+
+    .accordion-body {
+      pointer-events: none !important; // avoid nested accordion-bodys from overlaying elements
+    }
+
+    &.open {
+      height: 0;
+      position: relative;
+      visibility: visible;
+      z-index: 1;
+      opacity: 1;
+
+      .accordion-body {
+        pointer-events: all !important;
+      }
+    }
+  }
+
+  &.highlighted {
+    .accordion-body {
+      background: var(--accordion-highlight-body-background);
+    }
+  }
+}

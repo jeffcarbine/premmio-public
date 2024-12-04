@@ -1,0 +1,16 @@
+#skipToMainContent {
+  position: fixed;
+  top: -5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  transition: all 0.25s ease;
+
+  &:focus {
+    top: 0.5rem;
+  }
+}
+
+main {
+  outline: 0;
+}
